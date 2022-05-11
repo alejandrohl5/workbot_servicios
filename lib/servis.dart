@@ -10,8 +10,8 @@ class servicios_james extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-            appBar: AppBar(title: Text('Países')),
-            body: new ListView(children: [
+            appBar: AppBar(title: Text('Servicios')),
+            body: ListView(children: [
               _buildItem('Electrisista'),
               _buildItem('Gasfitero'),
               _buildItem('Soldador'),
@@ -42,7 +42,7 @@ class servicios_james extends StatelessWidget {
 }
 
 Widget _buildItem(String textTitle) {
-  return new ListTile(
+  return ListTile(
     title: Text(textTitle),
     // leading: Icon(Icons.face),
     onTap: () {
