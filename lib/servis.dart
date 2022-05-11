@@ -4,14 +4,14 @@ class servicios_james extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
         title: 'Países',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
             appBar: AppBar(title: Text('Países')),
-            body: ListView(children: [
+            body: new ListView(children: [
               _buildItem('Electrisista'),
               _buildItem('Gasfitero'),
               _buildItem('Soldador'),
