@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(new servicios_james());
+
 class servicios_james extends StatelessWidget {
   // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
