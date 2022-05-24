@@ -44,7 +44,7 @@ Widget _userTextField() {
   return StreamBuilder(
     builder: (BuildContext context, AsyncSnapshot snapshot){
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: TextField(
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -63,7 +63,7 @@ Widget _passwordTextField(){
   return StreamBuilder(
     builder: (BuildContext context, AsyncSnapshot snapshot){
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: TextField(
           keyboardType: TextInputType.emailAddress,
           obscureText: true,
@@ -107,6 +107,9 @@ Widget _bottonLogin(){
     }
   );
 }
+
+
+
 
 
 

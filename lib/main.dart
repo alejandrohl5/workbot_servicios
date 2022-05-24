@@ -5,6 +5,7 @@ import 'package:workbot_servicios/victor_perfil.dart';
 import 'victor_registro.dart';
 import 'login_page.dart';
 import 'rosario_formulario.dart';
+import 'inicio.dart';
 
 void main() {
   runApp(inicio());
@@ -16,12 +17,17 @@ class inicio extends StatelessWidget {
 @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      theme: ThemeData(
+          primaryColor: Colors.blue,
+        ),
+      home: inicio_sesion(),
+      
+      
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      // theme: ThemeData(
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      // ),
     );
   }
 }
