@@ -3,45 +3,18 @@ import 'rosario_formulario.dart';
 
 void main() => runApp(new servicios_james());
 
-class servicios_james extends StatefulWidget {
-  @override
-  State<servicios_james> createState() => _servicios_jamesState();
-}
-
-Widget barradebusqueda(String title, Function startSearchFunction) {
-  return AppBar(
-    title: Text(title),
-    actions: <Widget>[
-      IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {
-            startSearchFunction();
-          }),
-    ],
-  );
-}
-
-class _servicios_jamesState extends State<servicios_james> {
+class servicios_james extends StatelessWidget {
   // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Países',
-        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-            appBar: AppBar(
-              title: Text('Servicios'),
-              actions: <Widget>[
-                IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {
-                      //startSearchFunction();
-                    }),
-              ],
-            ),
+            appBar: AppBar(title: Text('Servicios')),
             body: ListView(children: [
               _buildItem('Electrisista'),
               _buildItem('Gasfitero'),
