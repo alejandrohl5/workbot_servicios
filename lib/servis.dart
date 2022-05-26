@@ -1,3 +1,5 @@
+import 'package:workbot_servicios/victor_perfil.dart';
+
 import 'rosario_formulario.dart';
 import 'package:flutter/material.dart';
 
@@ -106,6 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text(_list[index]),
                   onTap: () {
                     print('El usuario hizo click en $click');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => perfil())),
+                    );
                   }));
         });
   }
@@ -120,6 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text(_list[index]),
             onTap: () {
               print('El usuario hizo click en $click');
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: ((context) => perfil())));
             },
           ));
         });

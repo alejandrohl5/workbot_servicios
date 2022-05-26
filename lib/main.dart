@@ -14,16 +14,15 @@ void main() {
 class inicio extends StatelessWidget {
   const inicio({Key? key}) : super(key: key);
 
-@override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primaryColor: Colors.blue,
-        ),
+        primaryColor: Colors.blue,
+      ),
       home: inicio_sesion(),
-      
-      
-      title: 'Flutter Demo',
+
+      title: 'Worbot',
       debugShowCheckedModeBanner: false,
       // theme: ThemeData(
       //   visualDensity: VisualDensity.adaptivePlatformDensity,
