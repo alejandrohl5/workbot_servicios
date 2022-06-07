@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:workbot_servicios/login_page.dart';
 import 'package:workbot_servicios/rosario_formulario.dart';
@@ -7,7 +8,9 @@ import 'login_page.dart';
 import 'rosario_formulario.dart';
 import 'inicio.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(inicio());
 }
 
