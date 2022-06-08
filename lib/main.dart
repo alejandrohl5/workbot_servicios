@@ -6,6 +6,7 @@ import 'package:workbot_servicios/victor_perfil.dart';
 import 'victor_registro.dart';
 import 'login_page.dart';
 import 'rosario_formulario.dart';
+import 'introducccion.dart';
 import 'inicio.dart';
 
 void main() async {
@@ -23,7 +24,7 @@ class inicio extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),
-      home: inicio_sesion(),
+      home: PageLogin(),
 
       title: 'Worbot',
       debugShowCheckedModeBanner: false,
