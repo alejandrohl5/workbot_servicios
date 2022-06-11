@@ -1,3 +1,4 @@
+import 'package:workbot_servicios/Separaciones/Cliente/proPersonas.dart';
 import 'package:workbot_servicios/victor_perfil.dart';
 
 import 'rosario_formulario.dart';
@@ -78,18 +79,18 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       autofocus: true,
       cursorColor: Colors.white,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 20,
       ),
       textInputAction: TextInputAction.search,
-      decoration: InputDecoration(
-        enabledBorder:
-            UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-        focusedBorder:
-            UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      decoration: const InputDecoration(
+        enabledBorder: const UnderlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white)),
+        focusedBorder: UnderlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white)),
         hintText: 'Search',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: Colors.white60,
           fontSize: 20,
         ),
@@ -109,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     print('El usuario hizo click en $click');
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => perfil())),
+                      MaterialPageRoute(builder: ((context) => const perfil())),
                     );
                   }));
         });
@@ -126,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               print('El usuario hizo click en $click');
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: ((context) => perfil())));
+                  .push(MaterialPageRoute(builder: ((context) => Prueba())));
             },
           ));
         });
@@ -140,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
             actions: !_searchBoolean
                 ? [
                     IconButton(
-                        icon: Icon(Icons.search),
+                        icon: const Icon(Icons.search),
                         onPressed: () {
                           setState(() {
                             _searchBoolean = true;
@@ -150,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ]
                 : [
                     IconButton(
-                        icon: Icon(Icons.clear),
+                        icon: const Icon(Icons.clear),
                         onPressed: () {
                           setState(() {
                             _searchBoolean = false;
