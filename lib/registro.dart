@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:workbot_servicios/introducccion.dart';
 import 'package:workbot_servicios/constants.dart';
 import 'package:workbot_servicios/servis.dart';
@@ -11,6 +12,7 @@ class registroLogin extends StatefulWidget {
 }
 
 class _registroLogin extends State<registroLogin> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _nombreTextController = TextEditingController();
@@ -126,6 +128,7 @@ class _registroLogin extends State<registroLogin> {
   }
 
   Widget _btnrowsocial() {
+    GoogleSignInAccount? user = _googleSignIn.currentUser;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 30.0),
       child: Row(
@@ -138,7 +141,14 @@ class _registroLogin extends State<registroLogin> {
             ),
           ),
           _btnsocial(
-            () => print('Registrese con Google'),
+            user != null
+                ? null
+                : () async {
+                    await _googleSignIn.signIn().then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => servicios_james())));
+                  },
             AssetImage(
               'assets/google.jpg',
             ),
@@ -152,7 +162,7 @@ class _registroLogin extends State<registroLogin> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => registroLogin()));
+            context, MaterialPageRoute(builder: (context) => PageLogin()));
       },
       child: RichText(
         text: TextSpan(

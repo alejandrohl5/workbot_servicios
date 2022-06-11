@@ -5,6 +5,7 @@ import 'package:workbot_servicios/registro.dart';
 import 'package:workbot_servicios/constants.dart';
 import 'package:workbot_servicios/registro.dart';
 import 'package:workbot_servicios/servis.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class PageLogin extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class PageLogin extends StatefulWidget {
 }
 
 class _PageLoginState extends State<PageLogin> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   bool _recordar = false;
@@ -183,6 +185,7 @@ class _PageLoginState extends State<PageLogin> {
   }
 
   Widget _btnrowsocial() {
+    GoogleSignInAccount? user = _googleSignIn.currentUser;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 30.0),
       child: Row(
@@ -195,7 +198,14 @@ class _PageLoginState extends State<PageLogin> {
             ),
           ),
           _btnsocial(
-            () => print('Ingresa con Google'),
+            user != null
+                ? null
+                : () async {
+                    await _googleSignIn.signIn().then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => servicios_james())));
+                  },
             AssetImage(
               'assets/google.jpg',
             ),
