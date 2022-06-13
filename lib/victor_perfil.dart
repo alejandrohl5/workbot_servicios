@@ -79,9 +79,10 @@ Widget perfil1() {
     child: Row(children: <Widget>[
       SizedBox(
         height: 215,
-        width: 360,
+        width: 300,
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               _crearInput1(),
               const SizedBox(
