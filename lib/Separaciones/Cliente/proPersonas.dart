@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, prefer_is_empty, prefer_const_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -288,7 +288,7 @@ Widget personas() {
         ),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: ((context) => perfil()),
+            builder: ((context) => const perfil()),
           ));
         });
   });
