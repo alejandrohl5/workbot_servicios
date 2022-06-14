@@ -35,15 +35,6 @@ class inicio extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
-
-
-
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
@@ -57,22 +48,6 @@ class inicio extends StatelessWidget {
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // class ejecutor extends StatelessWidget {
 //   const ejecutor({Key? key}) : super(key: key);
 
@@ -81,5 +56,3 @@ class inicio extends StatelessWidget {
 //     return Container();
 //   }
 // }
-
-
