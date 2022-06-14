@@ -103,12 +103,14 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: _searchIndexList.length,
         itemBuilder: (context, index) {
           index = _searchIndexList[index];
-          var click = (_list[index]);
+          var click = (_list[index].toString());
+
           return Card(
               child: ListTile(
                   title: Text(_list[index]),
                   onTap: () {
                     print('El usuario hizo click en $click');
+
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: ((context) => const perfil())),
                     );

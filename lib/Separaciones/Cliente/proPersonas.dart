@@ -198,7 +198,7 @@ class _CuerpoState extends State<Cuerpo> {
     }
     Mecanico.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Mecanico');
+    print('data de nombres mecanicos :.......$Mecanico');
   }
 
   //.....................................
@@ -467,11 +467,11 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de djs :..........$userinit');
       }
     }
     Dj.add(userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Dj');
+    print('data n0mbres de djs :.......$Dj');
   }
 
   void getUserpediatra() async {
@@ -486,12 +486,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de pediatras :..........$userinit');
       }
     }
     Pediatra.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Pediatra');
+    print('data de nombres de pediatras:.......$Pediatra');
   }
 
   //................................
@@ -507,12 +507,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de asesores :..........$userinit');
       }
     }
     Asesoramiento.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Asesoramiento');
+    print('data de nombres de asesores :.......$Asesoramiento');
   }
 
   //............................
@@ -528,12 +528,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de jardineros :..........$userinit');
       }
     }
     Jardinero.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Jardinero');
+    print('data de nombrres de jardineros:.......$Jardinero');
   }
 
   //.....................
@@ -549,11 +549,11 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de cheff :..........$userinit');
       }
     }
     Cheff.add(userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Cheff');
+    print('data de nombres de cheff :.......$Cheff');
   }
 
   //....................................
@@ -569,12 +569,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de basrberos :..........$userinit');
       }
     }
     Barbershop.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Barbershop');
+    print('data de nombres de barberos :.......$Barbershop');
   }
 
   //.......................
@@ -590,12 +590,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de cantantes:..........$userinit');
       }
     }
     Cantante.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Cantante');
+    print('data nonbres de cantantes :.......$Cantante');
   }
 
   //......................................
@@ -611,12 +611,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de fotografos :..........$userinit');
       }
     }
     Fotografo.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Fotografo');
+    print('data de nombres de fotografos :.......$Fotografo');
   }
   //------------------------------------
 
