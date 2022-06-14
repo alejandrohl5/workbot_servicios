@@ -75,6 +75,25 @@ class _CuerpoState extends State<Cuerpo> {
     getUsersoldador();
     getUsermecanico();
     getUsercarpintero();
+    getUservidreria();
+    getUserfontaner();
+    getUserdeliveri();
+    getUsercontador();
+    getUserabogado();
+    getUserodontologia();
+    getUserfisioterapia();
+    getUserenfermeria();
+    getUserveterinario();
+    getUserbartman();
+    getUseranimador();
+    getUserdj();
+    getUserpediatra();
+    getUserasesores();
+    getUserjardineros();
+    getUsercheff();
+    getUserbarbershop();
+    getUsercantante();
+    getUserfotografo();
     super.initState();
   }
 
@@ -90,11 +109,11 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de pintores :..........$userinit');
       }
     }
     Pintor.add(userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Pintor');
+    print('data nombres de pintores :.......$Pintor');
   }
 
 //..........................................................
@@ -111,12 +130,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de electrisistas  :..........$userinit');
       }
     }
     Electrisista.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Electrisista');
+    print('data nombres electrisitas :.......$Electrisista');
   }
 
   //..............................................
@@ -132,12 +151,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de gasfiteros :..........$userinit');
       }
     }
     Gasfitero.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Gasfitero');
+    print('data nombres de gasfiteros :.......$Gasfitero');
   }
 
   //.........................................
@@ -153,12 +172,12 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de soldadores :..........$userinit');
       }
     }
     Soldador.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Soldador');
+    print('data nombres de soldadores :.......$Soldador');
   }
 
   //.......................................
@@ -174,7 +193,7 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data mecanicos:..........$userinit');
       }
     }
     Mecanico.add(
@@ -184,7 +203,7 @@ class _CuerpoState extends State<Cuerpo> {
 
   //.....................................
   void getUsercarpintero() async {
-    //funcion que trae los datos filtrados usuarios mecanico
+    //funcion que trae los datos filtrados usuarios carpinteros
     List userinit = [];
 
     CollectionReference coleccionDataFirebase =
@@ -196,14 +215,409 @@ class _CuerpoState extends State<Cuerpo> {
     if (users.docs.length != 0) {
       for (var doc in users.docs) {
         userinit.add(doc.data());
-        print('antes de :..........$userinit');
+        print('data de carpinteros :..........$userinit');
       }
     }
     Carpintero.add(
         userinit.map((user) => user['names'] + ' ' + user['surnames']));
-    print('El despued es :.......$Carpintero');
+    print('data nombres carpinteros :.......$Carpintero');
   }
-  //
+
+  //..............................................
+  void getUservidreria() async {
+    //funcion que trae los datos filtrados usuarios vidreros
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'vidreria').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de  vidreros:..........$userinit');
+      }
+    }
+    Vidreria.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data nombres de vidreros :.......$Vidreria');
+  }
+
+  //.........................................
+  void getUserfontaner() async {
+    //funcion que trae los datos filtrados usuarios fontaner
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'fontaner').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data fontaners :..........$userinit');
+      }
+    }
+    Fontaner.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data nombres de fontaners:.......$Fontaner');
+  }
+
+  //....................................
+  void getUserdeliveri() async {
+    //funcion que trae los datos filtrados usuarios deliveri
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'deliveri').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data deliveris :..........$userinit');
+      }
+    }
+    Delivery.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data nombres de deliveris :.......$Delivery');
+  }
+
+  //......................
+  void getUsercontador() async {
+    //funcion que trae los datos filtrados usuarios contadores
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'contador').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data contadores :..........$userinit');
+      }
+    }
+    Contador.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data nombres de contadores:.......$Contador');
+  }
+
+  //...............................
+  void getUserabogado() async {
+    //funcion que trae los datos filtrados usuarios abogados
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'abogado').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de abogados :..........$userinit');
+      }
+    }
+    Abogado.add(userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data de nombres de abogados :.......$Abogado');
+  }
+
+  //..................
+  void getUserodontologia() async {
+    //funcion que trae los datos filtrados usuarios adontologos
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users = await coleccionDataFirebase
+        .where("jobs", isEqualTo: 'odontologo')
+        .get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de odontologos :..........$userinit');
+      }
+    }
+    Odontologia.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data de nombres de abogados :.......$Odontologia');
+  }
+
+  //...............................
+  void getUserfisioterapia() async {
+    //funcion que trae los datos filtrados usuarios fisioterapeutas
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users = await coleccionDataFirebase
+        .where("jobs", isEqualTo: 'fisioterapia')
+        .get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de fisioterapeutas :..........$userinit');
+      }
+    }
+    Fisioterapeuta.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data de nombres de fisioterapeutas :.......$Fisioterapeuta');
+  }
+
+  //.................................
+  void getUserenfermeria() async {
+    //funcion que trae los datos filtrados usuarios enfermeria
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users = await coleccionDataFirebase
+        .where("jobs", isEqualTo: 'enfermeria')
+        .get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de enfermeria :..........$userinit');
+      }
+    }
+    Enfermeria.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data de nombres de enfermeros :.......$Enfermeria');
+  }
+
+  //........................
+  void getUserveterinario() async {
+    //funcion que trae los datos filtrados usuarios veterinario
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users = await coleccionDataFirebase
+        .where("jobs", isEqualTo: 'veterinario')
+        .get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de veterinarioas:..........$userinit');
+      }
+    }
+    Veterinario.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data de nombres de veterinarios :.......$Veterinario');
+  }
+
+  //.......................................
+  void getUserbartman() async {
+    //funcion que trae los datos filtrados usuarios bartman
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'bartman').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de bartmas :..........$userinit');
+      }
+    }
+    Barman.add(userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data de nombres de bartmas :.......$Barman');
+  }
+
+  void getUseranimador() async {
+    //funcion que trae los datos filtrados usuarios animador
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'animador').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('data de animadores :..........$userinit');
+      }
+    }
+    Animador.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('data nombres de Animadoores :.......$Animador');
+  }
+
+  void getUserdj() async {
+    //funcion que trae los datos filtrados usuarios dj
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'dj').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Dj.add(userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Dj');
+  }
+
+  void getUserpediatra() async {
+    //funcion que trae los datos filtrados usuarios pediatras
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'pediatras').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Pediatra.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Pediatra');
+  }
+
+  //................................
+  void getUserasesores() async {
+    //funcion que trae los datos filtrados usuarios asesoeres
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'asesor').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Asesoramiento.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Asesoramiento');
+  }
+
+  //............................
+  void getUserjardineros() async {
+    //funcion que trae los datos filtrados usuarios jardineros
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'jardinero').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Jardinero.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Jardinero');
+  }
+
+  //.....................
+  void getUsercheff() async {
+    //funcion que trae los datos filtrados usuarios cheff
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'cheff').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Cheff.add(userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Cheff');
+  }
+
+  //....................................
+  void getUserbarbershop() async {
+    //funcion que trae los datos filtrados usuarios barberos
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'barbero').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Barbershop.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Barbershop');
+  }
+
+  //.......................
+  void getUsercantante() async {
+    //funcion que trae los datos filtrados usuarios cantante
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'cantante').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Cantante.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Cantante');
+  }
+
+  //......................................
+  void getUserfotografo() async {
+    //funcion que trae los datos filtrados usuarios fotografo
+    List userinit = [];
+
+    CollectionReference coleccionDataFirebase =
+        FirebaseFirestore.instance.collection("colaboradores");
+    QuerySnapshot users =
+        await coleccionDataFirebase.where("jobs", isEqualTo: 'fotografo').get();
+
+    if (users.docs.length != 0) {
+      for (var doc in users.docs) {
+        userinit.add(doc.data());
+        print('antes de :..........$userinit');
+      }
+    }
+    Fotografo.add(
+        userinit.map((user) => user['names'] + ' ' + user['surnames']));
+    print('El despued es :.......$Fotografo');
+  }
   //------------------------------------
 
   @override
