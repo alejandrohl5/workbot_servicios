@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:workbot_servicios/wigetcomentarios.dart';
 
 void main() => runApp(target_james());
 
@@ -273,6 +274,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('Button pressed ...');
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) => comentarios_james())));
                       },
                       child: const Text('Ver comentarios'),
                     ),
