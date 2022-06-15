@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:workbot_servicios/victor_perfil.dart';
 import 'package:workbot_servicios/vistaTrabajador.dart';
 import 'package:workbot_servicios/servis.dart';
+import 'package:workbot_servicios/targetadePresntaColab.dart';
 
 void main() {
   WidgetsFlutterBinding
@@ -29,8 +30,6 @@ class Prueba extends StatelessWidget {
     );
   }
 }
-
-
 
 class Cuerpo extends StatefulWidget {
   const Cuerpo({Key? key}) : super(key: key);
@@ -691,7 +690,7 @@ Widget personas() {
           children: const [
             Padding(padding: EdgeInsets.symmetric(vertical: 45)),
             Text(
-              "jose Caceres " "\n" "Chipana Domingez",
+              "James levi  " "\n" "Ramirez Roman",
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.white,
@@ -705,7 +704,7 @@ Widget personas() {
         ),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: ((context) => const perfil()),
+            builder: ((context) => target_james()),
           ));
         });
   });
