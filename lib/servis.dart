@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _searchBoolean = false;
-
+  String clickfin = '';
   List<int> _searchIndexList = [];
 
   List<String> _list = [
@@ -111,9 +111,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     print('El usuario hizo click en $click');
 
+                    clickfin = click;
+
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: ((context) => const perfil())),
                     );
+                    //return new cappturandoclic(clickfin);
                   }));
         });
   }
@@ -122,12 +125,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return ListView.builder(
         itemCount: _list.length,
         itemBuilder: (context, index) {
-          var click = (_list[index]);
+          var click = (_list[index].toString());
+
           return Card(
               child: ListTile(
             title: Text(_list[index]),
             onTap: () {
               print('El usuario hizo click en $click');
+              clickfin = click;
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: ((context) => Prueba())));
             },
