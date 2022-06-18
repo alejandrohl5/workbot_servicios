@@ -67,7 +67,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 3,
-                            color: Color(0x25000000),
+                            color: Color.fromARGB(35, 51, 78, 230),
                             offset: Offset(0, 2),
                           )
                         ],
@@ -147,7 +147,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 3,
-                            color: Color(0x25000000),
+                            color: Color.fromARGB(36, 123, 8, 218),
                             offset: Offset(0, 2),
                           )
                         ],
