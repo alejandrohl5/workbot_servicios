@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: _searchIndexList.length,
         itemBuilder: (context, index) {
           index = _searchIndexList[index];
-          var click = (_list[index].toString());
+          var click = (_list[index].toString().toLowerCase());
 
           return Card(
               child: ListTile(
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return ListView.builder(
         itemCount: _list.length,
         itemBuilder: (context, index) {
-          var click = (_list[index].toString());
+          var click = (_list[index].toString().toLowerCase());
 
           return Card(
               child: ListTile(
