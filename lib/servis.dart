@@ -1,21 +1,27 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workbot_servicios/Separaciones/Cliente/proPersonas.dart';
+import 'package:workbot_servicios/src/bloc/auth_cubit.dart';
 import 'package:workbot_servicios/victor_perfil.dart';
-
+import 'package:workbot_servicios/src/repository/auth_repository.dart';
 import 'rosario_formulario.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(servicios_james());
 
 class servicios_james extends StatelessWidget {
+  static Widget create(BuildContext context) => servicios_james();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Servicios',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      body: BlocBuilder<AuthCubit, AuthState>(
+        buildWhen: ((previous, current) => current is AuthSingedIn),
+        builder: (_, state) {
+          final authUser = (state as AuthSingedIn).user;
+          return MyHomePage(
+            title: 'Servicios',
+          );
+        },
       ),
-      home: const MyHomePage(title: 'Servicios'),
     );
   }
 }
@@ -110,9 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text(_list[index]),
                   onTap: () {
                     print('El usuario hizo click en $click');
-
                     clickfin = click;
-
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: ((context) => const perfil())),
                     );
@@ -128,51 +132,15 @@ class _MyHomePageState extends State<MyHomePage> {
           var click = (_list[index].toString());
 
           return Card(
-            child: Row(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Column(
-                    children: <Widget>[
-                      FadeInImage(
-                        placeholder: NetworkImage(
-                            'https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_800,h_600/https://codigofuente.io/wp-content/uploads/2018/09/progress.gif'),
-                        image: NetworkImage(
-                            'https://media3.giphy.com/media/LniS2J1fPj0Hu/giphy.gif'),
-                        fit: BoxFit.cover,
-                        height: 150,
-                        width: 150,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Text("aaaaa"),
-                      )
-                    ],
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Column(
-                    children: <Widget>[
-                      FadeInImage(
-                        placeholder: NetworkImage(
-                            'https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_800,h_600/https://codigofuente.io/wp-content/uploads/2018/09/progress.gif'),
-                        image: NetworkImage(
-                            'https://media3.giphy.com/media/LniS2J1fPj0Hu/giphy.gif'),
-                        fit: BoxFit.cover,
-                        height: 150,
-                        width: 150,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Text("aaaaa"),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
+              child: ListTile(
+            title: Text(_list[index]),
+            onTap: () {
+              print('El usuario hizo click en $click');
+              clickfin = click;
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: ((context) => Prueba())));
+            },
+          ));
         });
   }
 
