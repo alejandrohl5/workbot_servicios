@@ -128,15 +128,51 @@ class _MyHomePageState extends State<MyHomePage> {
           var click = (_list[index].toString());
 
           return Card(
-              child: ListTile(
-            title: Text(_list[index]),
-            onTap: () {
-              print('El usuario hizo click en $click');
-              clickfin = click;
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: ((context) => Prueba())));
-            },
-          ));
+            child: Row(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Column(
+                    children: <Widget>[
+                      FadeInImage(
+                        placeholder: NetworkImage(
+                            'https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_800,h_600/https://codigofuente.io/wp-content/uploads/2018/09/progress.gif'),
+                        image: NetworkImage(
+                            'https://media3.giphy.com/media/LniS2J1fPj0Hu/giphy.gif'),
+                        fit: BoxFit.cover,
+                        height: 150,
+                        width: 150,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text("aaaaa"),
+                      )
+                    ],
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Column(
+                    children: <Widget>[
+                      FadeInImage(
+                        placeholder: NetworkImage(
+                            'https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_800,h_600/https://codigofuente.io/wp-content/uploads/2018/09/progress.gif'),
+                        image: NetworkImage(
+                            'https://media3.giphy.com/media/LniS2J1fPj0Hu/giphy.gif'),
+                        fit: BoxFit.cover,
+                        height: 150,
+                        width: 150,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text("aaaaa"),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
         });
   }
 

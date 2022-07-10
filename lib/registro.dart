@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:workbot_servicios/introducccion.dart';
 import 'package:workbot_servicios/constants.dart';
 import 'package:workbot_servicios/servis.dart';
+import 'package:workbot_servicios/src/bloc/auth_cubit.dart';
 
 class registroLogin extends StatefulWidget {
   @override
@@ -192,85 +194,92 @@ class _registroLogin extends State<registroLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xff73aef5),
-                      Color(0xff61a4f1),
-                      Color(0xff478de0),
-                      Color(0xff398ae5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Registrate',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Open Sans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+      body: BlocBuilder<AuthCubit, AuthState>(
+        builder: (_, state) {
+          return Scaffold(
+            body: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.light,
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xff73aef5),
+                            Color(0xff61a4f1),
+                            Color(0xff478de0),
+                            Color(0xff398ae5),
+                          ],
+                          stops: [0.1, 0.4, 0.7, 0.9],
                         ),
                       ),
-                      SizedBox(
-                        height: 10.0,
+                    ),
+                    Container(
+                      height: double.infinity,
+                      child: SingleChildScrollView(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 40.0,
+                          vertical: 120.0,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Registrate',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Open Sans',
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            _nombre(),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            _email(),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            _contrasena(),
+                            firebaseUIButton(context, 'Registrate', () {
+                              FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                      email: _emailTextController.text,
+                                      password: _passwordTextController.text)
+                                  .then((value) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            servicios_james()));
+                              }).onError((error, stackTrace) {
+                                print("Error ${error.toString()}");
+                              });
+                            }),
+                            _textregistro(),
+                            _btnrowsocial(),
+                            _logearbtn()
+                          ],
+                        ),
                       ),
-                      _nombre(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      _email(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      _contrasena(),
-                      firebaseUIButton(context, 'Registrate', () {
-                        FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: _emailTextController.text,
-                                password: _passwordTextController.text)
-                            .then((value) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => servicios_james()));
-                        }).onError((error, stackTrace) {
-                          print("Error ${error.toString()}");
-                        });
-                      }),
-                      _textregistro(),
-                      _btnrowsocial(),
-                      _logearbtn()
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

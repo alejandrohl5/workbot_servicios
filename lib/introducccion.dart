@@ -5,7 +5,9 @@ import 'package:workbot_servicios/registro.dart';
 import 'package:workbot_servicios/constants.dart';
 import 'package:workbot_servicios/registro.dart';
 import 'package:workbot_servicios/servis.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:workbot_servicios/src/bloc/auth_cubit.dart';
 
 class PageLogin extends StatefulWidget {
   @override
@@ -185,27 +187,19 @@ class _PageLoginState extends State<PageLogin> {
   }
 
   Widget _btnrowsocial() {
-    GoogleSignInAccount? user = _googleSignIn.currentUser;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 30.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _btnsocial(
-            () => print('Ingresa con Facebook'),
+            () => context.read<AuthCubit>().signInWithFacebook(),
             AssetImage(
               'assets/facebook.jpg',
             ),
           ),
           _btnsocial(
-            user != null
-                ? null
-                : () async {
-                    await _googleSignIn.signIn().then((value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => servicios_james())));
-                  },
+            () => context.read<AuthCubit>().signInWithGoogle(),
             AssetImage(
               'assets/google.jpg',
             ),

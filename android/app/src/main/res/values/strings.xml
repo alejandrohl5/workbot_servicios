@@ -2,5 +2,6 @@
 <resource>
     <string name="app_name">Workbot</string>
     <string name="facebook_app_id">4982259881902097</string>
-    <string name="fb_login_protocol_scheme">fb4982259881902097</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">8e0fab978dc78247a354d997e745a21b</string>
 </resource>
