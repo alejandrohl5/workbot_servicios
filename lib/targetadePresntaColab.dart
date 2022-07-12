@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:workbot_servicios/introducccion.dart';
+import 'package:workbot_servicios/servis.dart';
+import 'package:workbot_servicios/src/repository/auth_repository.dart';
 import 'package:workbot_servicios/wigetcomentarios.dart';
 
 void main() => runApp(target_james());
@@ -28,6 +32,23 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
+  String comentarioDado = "", cuentaIngresada = "";
+  getcomentarioDado(comentario) {
+    comentarioDado = comentario;
+  }
+
+  enviarDato() {
+    print("enviar");
+
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection("comentarios").doc();
+
+    documentReference.set(
+      {"comentarioDado": comentarioDado},
+      SetOptions(merge: true),
+    ).catchError((error) => print("Fallo al enviar el dato: $error"));
+  }
+
   late TextEditingController textController;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -225,11 +246,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             children: [
                               TextFormField(
                                 controller: textController,
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'textController',
-                                  Duration(milliseconds: 2000),
-                                  () => setState(() {}),
-                                ),
                                 autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -255,10 +271,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                   ),
                                 ),
+                                onChanged: (String comentario) {
+                                  getcomentarioDado(comentario);
+                                },
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  print('Button pressed ...');
+                                  enviarDato();
                                 },
                                 child: const Text('Enviar'),
                               ),
