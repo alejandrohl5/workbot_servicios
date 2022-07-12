@@ -1,10 +1,15 @@
+
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:workbot_servicios/wigetcomentarios.dart';
 
-void main() => runApp(target_james());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(target_james());
+}
 
 class target_james extends StatelessWidget {
   @override
@@ -29,6 +34,8 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget> {
   late TextEditingController textController;
+  String nombref = '';
+  String correo = '';
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,6 +44,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.initState();
     textController = TextEditingController();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

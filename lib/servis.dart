@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     print('El usuario hizo click en $click');
                     clickfin = click;
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => const perfil())),
+                      MaterialPageRoute(builder: ((context) => Prueba())),
                     );
                     //return new cappturandoclic(clickfin);
                   }));

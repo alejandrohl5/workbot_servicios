@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:workbot_servicios/victor_perfil.dart';
-import 'package:workbot_servicios/vistaTrabajador.dart';
-import 'package:workbot_servicios/servis.dart';
+import 'package:workbot_servicios/formuPosibleTraba.dart';
 import 'package:workbot_servicios/targetadePresntaColab.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +28,7 @@ class _MyAppState extends State<Prueba> {
 
 class AddData extends StatelessWidget {
   String finales = '';
-  String accionDeUsuario = 'cheff';
+  String accionDeUsuario = 'soldador';
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +56,8 @@ class AddData extends StatelessWidget {
             ),
             onPressed: () {
               print('Pressed');
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => FormularioDeTrabajo(title: 'hh',))));
             },
           ),
         ],
@@ -92,59 +91,53 @@ class AddData extends StatelessWidget {
                     color: Color.fromARGB(255, 255, 255, 255),
                     shape: BoxShape.rectangle,
                   ),
-                  
                   child: Padding(
-
                     padding: EdgeInsetsDirectional.fromSTEB(2, 12, 2, 2),
-
                     child: Card(
-                      
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       color: Color.fromARGB(255, 136, 138, 138),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: InkWell(
-                    onTap: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => target_james(),
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => target_james(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-0.05, 0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(22),
+                                child: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/pruefirebase-67702.appspot.com/o/colaboradores%2Fdescarga.jpg?alt=media&token=7369fe31-6b98-44dc-ba67-7c157e38d903',
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(22, 4, 4, 4),
+                                child: Text(
+                                  '$finales',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(-0.05, 0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(22),
-                              child: Image.network(
-                                'https://firebasestorage.googleapis.com/v0/b/pruefirebase-67702.appspot.com/o/colaboradores%2Fdescarga.jpg?alt=media&token=7369fe31-6b98-44dc-ba67-7c157e38d903',
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(22, 4, 4, 4),
-                              child: Text(
-                                '$finales',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
-                      
                     ),
-                    ),
-                  
                   ));
             }).toList(),
           );
