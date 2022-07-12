@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() => runApp(comentarios_james());
 
@@ -113,14 +116,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 4, 0, 0),
-                                    child: Text(
-                                        'lass simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de la imprenta) desconocido us',
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          color: Color(0xFF4B39EF),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        )),
+                                    child: Text("fsd"),
                                   ),
                                 ),
                               ],
