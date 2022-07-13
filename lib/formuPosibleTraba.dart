@@ -112,6 +112,7 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
         Navigator.of(context).push(
           MaterialPageRoute(builder: ((context) => servicios_james())),
         );
+        Navigator.of(context, rootNavigator: true).pop('dialog');
       },
     );
 
