@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,23 +37,6 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  String comentarioDado = "", cuentaIngresada = "";
-  getcomentarioDado(comentario) {
-    comentarioDado = comentario;
-  }
-
-  enviarDato() {
-    print("enviar");
-
-    DocumentReference documentReference =
-        FirebaseFirestore.instance.collection("comentarios").doc();
-
-    documentReference.set(
-      {"comentarioDado": comentarioDado},
-      SetOptions(merge: true),
-    ).catchError((error) => print("Fallo al enviar el dato: $error"));
-  }
-
   late TextEditingController textController;
   String nombref = '';
   String correo = '';
@@ -66,8 +48,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.initState();
     textController = TextEditingController();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -234,64 +214,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             onRatingUpdate: (rating) {
                               print(rating);
                             },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Color(0xFFF5F5F5),
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEEEEEE),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              TextFormField(
-                                controller: textController,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText: 'Ingrese su comentario ',
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                ),
-                                onChanged: (String comentario) {
-                                  getcomentarioDado(comentario);
-                                },
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  enviarDato();
-                                },
-                                child: const Text('Enviar'),
-                              ),
-                            ],
                           ),
                         ],
                       ),
