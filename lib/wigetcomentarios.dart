@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:workbot_servicios/src/bloc/auth_cubit.dart';
 
 void main() => runApp(comentarios_james());
 
@@ -19,11 +21,6 @@ class comentarios_james extends StatelessWidget {
   }
 }
 
-Future firebaseUsuario() async {
-  final usuario = await FirebaseAuth.instance.currentUser?.email;
-  return usuario;
-}
-
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
 
@@ -37,26 +34,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     comentarioDado = comentario;
   }
 
-  getcomentaristaCorreo(ctCorreo) {
-    comentaristaCorreo = ctCorreo;
-  }
-
   getcomentadoCorreo(cdCorreo) {
     comentadoCorreo = cdCorreo;
   }
 
-  enviarDato() {
+  get enviarDato {
     print("enviar");
 
-    DocumentReference documentReference = FirebaseFirestore.instance
-        .collection("comentarios")
-        .doc(comentaristaCorreo);
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection("comentarios").doc();
 
     documentReference.set(
       {
         "comentarioDado": comentarioDado,
-        "comentaristaCorreo": comentaristaCorreo,
-        "comentadoCorreo": comentadoCorreo
+        "comentadoCorreo": comentadoCorreo,
+        "comentaristaCorreo": FirebaseAuth.instance.currentUser!.email
       },
       SetOptions(merge: true),
     ).catchError((error) => print("Fallo al enviar el dato: $error"));
@@ -96,38 +88,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   color: Color(0xFFF5F5F5),
                   child: Container(
                     width: 400,
-                    height: 250,
+                    height: 190,
                     decoration: BoxDecoration(
                       color: Color(0xFFEEEEEE),
                     ),
                     child: Column(
                       children: [
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                          child: TextFormField(
-                            autofocus: true,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              hintText: "De: ",
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  width: 1,
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                            onChanged: (String ctCorreo) {
-                              getcomentaristaCorreo(ctCorreo);
-                            },
-                          ),
-                        ),
                         Padding(
                           padding:
                               EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
@@ -184,7 +150,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ElevatedButton(
                           onPressed: () {
                             print('Button pressed ...');
-                            enviarDato();
+                            enviarDato;
                           },
                           child: const Text('Enviar'),
                         ),

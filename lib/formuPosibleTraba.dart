@@ -374,18 +374,3 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
     );
   }
 }
-Future firebaseUsuario() async {
-  final usuario = await FirebaseAuth.instance.currentUser?.email;
-  return usuario;
-}
-FutureBuilder(
-  future: firebaseUsuario(),
-  builder: (context, snapshot) {
-    if (snapshot.connectionState ==
-        ConnectionState.done) {
-      return Text("Usuario: ${snapshot.data}");
-    } else {
-      return CircularProgressIndicator();
-    }
-  },
-),
