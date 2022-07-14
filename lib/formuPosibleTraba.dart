@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blue,
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
               .copyWith(secondary: Colors.cyan)),
-      home: const FormularioDeTrabajo(title: 'Registrate ¡Gratis!'),
+      home: const FormularioDeTrabajo(title: ''),
     );
   }
 }
@@ -112,6 +113,7 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
         Navigator.of(context).push(
           MaterialPageRoute(builder: ((context) => servicios_james())),
         );
+        Navigator.of(context, rootNavigator: true).pop('dialog');
       },
     );
 
@@ -134,6 +136,34 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
     );
   }
 
+  alertCamposVacios(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("¡Upss!"),
+      content: Text(
+          "Su solicitud no se envio. Verifique que los campos esten llenos correctamente"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,149 +171,202 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
         title: Text(widget.title),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24.0),
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start, //responsivee
+            crossAxisAlignment: CrossAxisAlignment.center, //responsibe
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Nombres Y Apellidos",
-                    fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    ),
-                  ),
-                  onChanged: (String name) {
-                    getnombre(name);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Dni",
-                    fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    ),
-                  ),
-                  onChanged: (String id) {
-                    getdni(id);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Dirección",
-                    fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    ),
-                  ),
-                  onChanged: (String adress) {
-                    getdireccion(adress);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Edad",
-                    fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    ),
-                  ),
-                  onChanged: (String age) {
-                    getedad(age);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Email",
-                    fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    ),
-                  ),
-                  onChanged: (String emailE) {
-                    getemail(emailE);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                    decoration: const InputDecoration(
-                        labelText: 'Ocupación',
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blue, width: 2.0),
+              Expanded(
+                  flex: 3,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 201, 212, 216),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
                         )),
-                    onChanged: (String occupation) {
-                      getocupacion(occupation);
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                    decoration: const InputDecoration(
-                        labelText: 'Telefono',
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blue, width: 2.0),
-                        )),
-                    onChanged: (String telephone) {
-                      gettelefono(telephone);
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: TextFormField(
-                    decoration: const InputDecoration(
-                        labelText: 'WhatsApp',
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blue, width: 2.0),
-                        )),
-                    onChanged: (String whatsAsap) {
-                      getwhatsasap(whatsAsap);
-                    }),
-              ),
-              Center(
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Flexible(
-                          child: ElevatedButton(
-                        onPressed: () {
-                          createData();
-                          showAlertDialog(context);
-                        },
-                        child: const Text('Registrarse'),
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.green,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16)),
-                            textStyle: const TextStyle(color: Colors.white)),
-                      )),
-                    ],
-                  ),
-                ),
-              ),
+                    child: ListView(
+                        padding: EdgeInsets.all(24.0),
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "Nombres Y Apellidos",
+                                  fillColor: Colors.white,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                ),
+                                onChanged: (String name) {
+                                  getnombre(name);
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "Dni",
+                                  fillColor: Colors.white,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                ),
+                                onChanged: (String id) {
+                                  getdni(id);
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "Dirección",
+                                  fillColor: Colors.white,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                ),
+                                onChanged: (String adress) {
+                                  getdireccion(adress);
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "Edad",
+                                  fillColor: Colors.white,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                ),
+                                onChanged: (String age) {
+                                  getedad(age);
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "Email",
+                                  fillColor: Colors.white,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                ),
+                                onChanged: (String emailE) {
+                                  getemail(emailE);
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                  decoration: const InputDecoration(
+                                      labelText: 'Ocupación',
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.blue, width: 2.0),
+                                      )),
+                                  onChanged: (String occupation) {
+                                    getocupacion(occupation);
+                                  }),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                  decoration: const InputDecoration(
+                                      labelText: 'Telefono',
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.blue, width: 2.0),
+                                      )),
+                                  onChanged: (String telephone) {
+                                    gettelefono(telephone);
+                                  }),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: TextFormField(
+                                  decoration: const InputDecoration(
+                                      labelText: 'WhatsApp',
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.blue, width: 2.0),
+                                      )),
+                                  onChanged: (String whatsAsap) {
+                                    getwhatsasap(whatsAsap);
+                                  }),
+                            ),
+                          ),
+                          Container(
+                            child: Center(
+                              child: Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Flexible(
+                                        child: ElevatedButton(
+                                      onPressed: () {
+                                        if (nombre == '' ||
+                                            dni == '' ||
+                                            direccion == '' ||
+                                            email == '' ||
+                                            ocupacion == '' ||
+                                            telefono == '' ||
+                                            whatsasap == '') {
+                                          alertCamposVacios(context);
+                                        }
+                                        createData();
+                                        showAlertDialog(context);
+                                      },
+                                      child: const Text('Registrarse'),
+                                      style: ElevatedButton.styleFrom(
+                                          primary: Colors.green,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16)),
+                                          textStyle: const TextStyle(
+                                              color: Colors.white)),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ]),
+                  ))
             ],
           ),
         ),
@@ -291,3 +374,18 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
     );
   }
 }
+Future firebaseUsuario() async {
+  final usuario = await FirebaseAuth.instance.currentUser?.email;
+  return usuario;
+}
+FutureBuilder(
+  future: firebaseUsuario(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState ==
+        ConnectionState.done) {
+      return Text("Usuario: ${snapshot.data}");
+    } else {
+      return CircularProgressIndicator();
+    }
+  },
+),

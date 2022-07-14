@@ -57,7 +57,7 @@ class AddData extends StatelessWidget {
             onPressed: () {
               print('Pressed');
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: ((context) => FormularioDeTrabajo(title: 'hh',))));
+                  builder: ((context) => FormularioDeTrabajo(title: 'Registrate ¡Gratis!',))));
             },
           ),
         ],
