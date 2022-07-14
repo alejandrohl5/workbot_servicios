@@ -343,7 +343,7 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
                                             direccion == '' ||
                                             email == '' ||
                                             ocupacion == '' ||
-                                            telefono == '' || whatsasap == '') {
+                                            telefono == ''  whatsasap == '') {
                                           alertCamposVacios(context);
                                         }
                                         createData();
