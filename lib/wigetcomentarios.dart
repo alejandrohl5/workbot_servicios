@@ -19,6 +19,11 @@ class comentarios_james extends StatelessWidget {
   }
 }
 
+Future firebaseUsuario() async {
+  final usuario = await FirebaseAuth.instance.currentUser?.email;
+  return usuario;
+}
+
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
 
@@ -27,6 +32,36 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
+  String comentarioDado = "", comentaristaCorreo = "", comentadoCorreo = "";
+  getcomentarioDado(comentario) {
+    comentarioDado = comentario;
+  }
+
+  getcomentaristaCorreo(ctCorreo) {
+    comentaristaCorreo = ctCorreo;
+  }
+
+  getcomentadoCorreo(cdCorreo) {
+    comentadoCorreo = cdCorreo;
+  }
+
+  enviarDato() {
+    print("enviar");
+
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection("comentarios")
+        .doc(comentaristaCorreo);
+
+    documentReference.set(
+      {
+        "comentarioDado": comentarioDado,
+        "comentaristaCorreo": comentaristaCorreo,
+        "comentadoCorreo": comentadoCorreo
+      },
+      SetOptions(merge: true),
+    ).catchError((error) => print("Fallo al enviar el dato: $error"));
+  }
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -49,249 +84,132 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         elevation: 2,
       ),
       backgroundColor: Color.fromARGB(255, 242, 243, 245),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              ListView(
-                padding: EdgeInsets.zero,
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 3,
-                            color: Color.fromARGB(35, 51, 78, 230),
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 4, 8),
-                            child: Container(
-                              width: 4,
-                              height: 90,
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 19, 1, 68),
-                                borderRadius: BorderRadius.circular(4),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            Text("Zona de comentarios"),
+            Column(
+              children: [
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: Color(0xFFF5F5F5),
+                  child: Container(
+                    width: 400,
+                    height: 250,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFEEEEEE),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                          child: TextFormField(
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: "De: ",
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
                               ),
                             ),
+                            onChanged: (String ctCorreo) {
+                              getcomentaristaCorreo(ctCorreo);
+                            },
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 12, 16, 12),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Persona 1',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      color: Color(0xFF101213),
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.78,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 4, 0, 0),
-                                    child: Text("fsd"),
-                                  ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                          child: TextFormField(
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: "Para: ",
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              ListView(
-                padding: EdgeInsets.zero,
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 3,
-                            color: Color.fromARGB(36, 123, 8, 218),
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 4, 8),
-                            child: Container(
-                              width: 4,
-                              height: 90,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4B39EF),
-                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
                               ),
                             ),
+                            onChanged: (String cdCorreo) {
+                              getcomentadoCorreo(cdCorreo);
+                            },
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 12, 16, 12),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Persona 2',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.78,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 4, 0, 0),
-                                    child: Text(
-                                        'lass simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de la imprenta) desconocido us',
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          color:
-                                              Color.fromARGB(255, 239, 212, 57),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                  ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                          child: TextFormField(
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: "Deje su comentario: ",
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              ListView(
-                padding: EdgeInsets.zero,
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 3,
-                            color: Color.fromARGB(36, 19, 190, 56),
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 4, 8),
-                            child: Container(
-                              width: 4,
-                              height: 90,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4B39EF),
-                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
                               ),
                             ),
+                            onChanged: (String comentario) {
+                              getcomentarioDado(comentario);
+                            },
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 12, 16, 12),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Persona 3',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      color: Color(0xFF101213),
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.78,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 4, 0, 0),
-                                    child: Text(
-                                        'lass simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de la imprenta) desconocido us',
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          color:
-                                              Color.fromARGB(255, 67, 180, 92),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Padding(padding: EdgeInsets.all(5)),
+                        ElevatedButton(
+                          onPressed: () {
+                            print('Button pressed ...');
+                            enviarDato();
+                          },
+                          child: const Text('Enviar'),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: Color(0xFFF5F5F5),
+                  child: Container(
+                    width: 390,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFEEEEEE),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
