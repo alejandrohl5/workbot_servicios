@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blue,
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
               .copyWith(secondary: Colors.cyan)),
-      home: const FormularioDeTrabajo(title: 'Registrate ¡Gratis!'),
+      home: const FormularioDeTrabajo(title: ''),
     );
   }
 }
@@ -135,6 +136,34 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
     );
   }
 
+  alertCamposVacios(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("¡Upss!"),
+      content: Text(
+          "Su solicitud no se envio. Verifique que los campos esten llenos correctamente"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,7 +209,6 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
                               ),
                             ),
                           ),
-                          
                           Container(
                             padding: EdgeInsets.all(10.0),
                             child: Center(
@@ -311,6 +339,15 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
                                     Flexible(
                                         child: ElevatedButton(
                                       onPressed: () {
+                                        if (nombre == '' ||
+                                            dni == '' ||
+                                            direccion == '' ||
+                                            email == '' ||
+                                            ocupacion == '' ||
+                                            telefono == '' ||
+                                            whatsasap == '') {
+                                          alertCamposVacios(context);
+                                        }
                                         createData();
                                         showAlertDialog(context);
                                       },
@@ -337,3 +374,18 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
     );
   }
 }
+Future firebaseUsuario() async {
+  final usuario = await FirebaseAuth.instance.currentUser?.email;
+  return usuario;
+}
+FutureBuilder(
+  future: firebaseUsuario(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState ==
+        ConnectionState.done) {
+      return Text("Usuario: ${snapshot.data}");
+    } else {
+      return CircularProgressIndicator();
+    }
+  },
+),
