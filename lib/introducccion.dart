@@ -1,24 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:workbot_servicios/registro.dart';
 import 'package:workbot_servicios/constants.dart';
-import 'package:workbot_servicios/registro.dart';
-import 'package:workbot_servicios/servis.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:workbot_servicios/src/bloc/auth_cubit.dart';
+import 'package:workbot_servicios/src/navigation/routes.dart';
 
 class PageLogin extends StatefulWidget {
+  static Widget create(BuildContext context) => PageLogin();
   @override
   _PageLoginState createState() => _PageLoginState();
 }
 
 class _PageLoginState extends State<PageLogin> {
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
-  bool _recordar = false;
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  String? validatore(String? value) {
+    return (value == null || value.isEmpty)
+        ? 'Es importante completar esta seccion'
+        : null;
+  }
 
   Widget _email() {
     return Column(
@@ -35,9 +37,29 @@ class _PageLoginState extends State<PageLogin> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: reusable('Correo Electronico', 'Ingrese su Correo Electronico',
-              Icons.email_outlined, false, _emailTextController),
+          child: TextFormField(
+            controller: _emailController,
+            validator: validatore,
+            obscureText: false,
+            autocorrect: !false,
+            enableSuggestions: !false,
+            cursorColor: Colors.white,
+            style: TextStyle(color: Colors.white, fontFamily: 'Open Sans'),
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.email_outlined,
+                color: Colors.white,
+              ),
+              hintText: 'Ingrese un Correo Electronico',
+              hintStyle: kHintTextStyle,
+              fillColor: Colors.white.withOpacity(0.3),
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+            ),
+            keyboardType: TextInputType.emailAddress,
+          ),
         ),
+        SizedBox(height: 10.0),
       ],
     );
   }
@@ -54,11 +76,32 @@ class _PageLoginState extends State<PageLogin> {
           height: 10.0,
         ),
         Container(
-            alignment: Alignment.centerLeft,
-            decoration: kBoxDecorationStyle,
-            height: 60.0,
-            child: reusable('Contraseña', 'Ingrese su Contraseña',
-                Icons.lock_outline, true, _passwordTextController)),
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextFormField(
+            controller: _passwordController,
+            validator: validatore,
+            obscureText: true,
+            autocorrect: !true,
+            enableSuggestions: !true,
+            cursorColor: Colors.white,
+            style: TextStyle(color: Colors.white, fontFamily: 'Open Sans'),
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.lock_outline,
+                color: Colors.white,
+              ),
+              hintText: 'Ingrese un contraseña',
+              hintStyle: kHintTextStyle,
+              fillColor: Colors.white.withOpacity(0.3),
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+            ),
+            keyboardType: TextInputType.visiblePassword,
+          ),
+        ),
+        SizedBox(height: 10.0),
       ],
     );
   }
@@ -77,58 +120,18 @@ class _PageLoginState extends State<PageLogin> {
     );
   }
 
-  Widget _btnrecordar() {
-    return Container(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
-            child: Checkbox(
-              value: _recordar,
-              checkColor: Colors.green,
-              activeColor: Colors.white,
-              onChanged: (value) {
-                setState(() {
-                  value = _recordar;
-                });
-              },
-            ),
-          ),
-          Text(
-            'Recordar',
-            style: kLabelStyle,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _btnlogin() {
+  Widget _butonlogin() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () => {
-          FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-                  email: _email().toString(),
-                  password: _contrasena().toString())
-              .then((value) => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => servicios_james()))
-                  })
+        onPressed: () {
+          if (_formKey.currentState?.validate() == true) ;
+          context.read<AuthCubit>().signInWithEmailAndPassword(
+              _emailController.text, _passwordController.text);
         },
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: Colors.white,
         child: Text(
-          'Ingresar',
+          "Iniciar Sesion",
           style: TextStyle(
             color: Color(0xff527daa),
             letterSpacing: 1.5,
@@ -137,6 +140,11 @@ class _PageLoginState extends State<PageLogin> {
             fontFamily: 'Open Sans',
           ),
         ),
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        color: Colors.white,
       ),
     );
   }
@@ -212,8 +220,8 @@ class _PageLoginState extends State<PageLogin> {
   Widget _registrarbtn() {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => registroLogin()));
+        context.read<AuthCubit>().reset();
+        Navigator.pushNamed(context, Routes.registro);
       },
       child: RichText(
         text: TextSpan(
@@ -243,82 +251,78 @@ class _PageLoginState extends State<PageLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xff73aef5),
-                      Color(0xff61a4f1),
-                      Color(0xff478de0),
-                      Color(0xff398ae5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      body: BlocBuilder<AuthCubit, AuthState>(
+        builder: (_, state) {
+          return Form(
+            key: _formKey,
+            child: Scaffold(
+              body: AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.light,
+                child: GestureDetector(
+                  onTap: () => FocusScope.of(context).unfocus(),
+                  child: Stack(
                     children: <Widget>[
-                      Text(
-                        'Inicio Sesion',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Open Sans',
-                          fontSize: 35.0,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xff73aef5),
+                              Color(0xff61a4f1),
+                              Color(0xff478de0),
+                              Color(0xff398ae5),
+                            ],
+                            stops: [0.1, 0.4, 0.7, 0.9],
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 30.0,
+                      Container(
+                        height: double.infinity,
+                        child: SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.0,
+                            vertical: 120.0,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Inicio Sesion',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Open Sans',
+                                  fontSize: 35.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              _email(),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              _contrasena(),
+                              _btncontrasena(),
+                              _butonlogin(),
+                              _textregistro(),
+                              _btnrowsocial(),
+                              _registrarbtn(),
+                            ],
+                          ),
+                        ),
                       ),
-                      _email(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      _contrasena(),
-                      _btncontrasena(),
-                      firebaseUIButton(context, 'Ingresar', () {
-                        FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: _emailTextController.text,
-                                password: _passwordTextController.text)
-                            .then((value) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => servicios_james()));
-                        }).onError((error, stackTrace) {
-                          print("Error ${error.toString()}");
-                        });
-                      }),
-                      _textregistro(),
-                      _btnrowsocial(),
-                      _registrarbtn(),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
