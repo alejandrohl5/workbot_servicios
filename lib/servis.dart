@@ -27,21 +27,20 @@ class servicios_james extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  
-  
+  final String title;
 
   const MyHomePage({
     Key? key,
     required this.title,
   }) : super(key: key);
-  final String title;
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _searchBoolean = false;
-  String clickfin = '';
+  String clickfin = ''.toLowerCase();
   List<int> _searchIndexList = [];
 
   List<String> _list = [
@@ -59,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Fisioterapeuta',
     'Enfermeria',
     'Veterinario',
-    'Barman',
+    'Bartman',
     'Animador',
     'Dj',
     'Pediatra',
@@ -117,9 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text(_list[index]),
                   onTap: () {
                     print('El usuario hizo click en $click');
-                    clickfin = click;
+                    clickfin = click.toLowerCase();
+
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => Prueba())),
+                      MaterialPageRoute(
+                          builder: ((context) => App(clickfin.toLowerCase()))),
                     );
                     //return new cappturandoclic(clickfin);
                   }));
@@ -137,9 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text(_list[index]),
             onTap: () {
               print('El usuario hizo click en $click');
-              clickfin = click;
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: ((context) => Prueba())));
+              clickfin = click.toLowerCase();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => App(clickfin.toLowerCase()))));
             },
           ));
         });
