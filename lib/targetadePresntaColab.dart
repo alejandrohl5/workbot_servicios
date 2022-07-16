@@ -1,242 +1,252 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_debounce/easy_debounce.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:workbot_servicios/introducccion.dart';
-import 'package:workbot_servicios/servis.dart';
-import 'package:workbot_servicios/src/repository/auth_repository.dart';
-import 'package:workbot_servicios/wigetcomentarios.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(target_james());
-}
-
-class target_james extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Servicios',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePageWidget(),
-    );
-  }
-}
-
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key? key}) : super(key: key);
-
-  @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
-}
-
-class _HomePageWidgetState extends State<HomePageWidget> {
-  late TextEditingController textController;
-  String nombref = '';
+class target extends StatelessWidget {
+  String nombre = '';
+  String numero = '99732085';
   String correo = '';
+  String direccion = '';
+  String especialidad = '';
+  String calificacion = '';
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    textController = TextEditingController();
+  // String accionDeUsuario = '';
+  void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    runApp(target(''));
   }
+
+  target(
+    this.emailClickeado,
+  );
+  final String emailClickeado;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Text('Worbkbot',
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            )),
-        actions: [],
-        centerTitle: true,
-        elevation: 2,
-      ),
-      backgroundColor: Colors.blue,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Align(
-            alignment: AlignmentDirectional(0.65, 0.75),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.8,
-              decoration: BoxDecoration(
-                color: Color(0xFFEEEEEE),
-                shape: BoxShape.rectangle,
-              ),
-              alignment: AlignmentDirectional(
-                  -0.050000000000000044, -0.09999999999999998),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Color(0xFFF5F5F5),
-                    child: Align(
-                      alignment: AlignmentDirectional(-0.7, -0.85),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(-0.25, -0.75),
-                              child: SingleChildScrollView(
-                                primary: false,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(-0.05, -0.1),
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFEEEEEE),
-                                          image: DecorationImage(
-                                            fit: BoxFit.contain,
-                                            image: Image.network(
-                                              'https://firebasestorage.googleapis.com/v0/b/pruefirebase-67702.appspot.com/o/colaboradores%2Fdescarga.jfif?alt=media&token=390169ca-e0b1-497e-a248-3a1288935946',
-                                            ).image,
+    return FutureBuilder(
+      // Inicializar FlutterFire
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          print('No se logrogo conectar');
+        }
+
+        // Una vez completado, se muestra la aplicación
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Color.fromARGB(255, 64, 186, 235),
+                  title: Text("$emailClickeado"),
+                ),
+                body: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('colaboradores')
+                      .where('email', isEqualTo: "$emailClickeado".toString())
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    return ListView(
+                      children: snapshot.data!.docs.map((document) {
+                        if (document['email'].toString() ==
+                            "$emailClickeado".toString()) {
+                          nombre = document['names'].toString() +
+                              ' ' +
+                              document['surnames'].toString();
+
+                          correo = document['email'];
+
+                          direccion = document['direccion'];
+                          especialidad = document['jobs'];
+                          calificacion = document['calificacion'];
+                          print(
+                              'el email  trajo es: $emailClickeado pelotudooooooooooooooooooooooooooooooooooooooooo');
+
+                          print(
+                              "si entro mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+                          print(nombre);
+                          print(correo);
+                          print(direccion);
+                          print(especialidad);
+                        }
+
+                        ;
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 1,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFEEEEEE),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                ),
+                                child: Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Align(
+                                        alignment: AlignmentDirectional(0.1, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  9, 9, 9, 9),
+                                          child: Container(
+                                            width: 100,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFEEEEEE),
+                                            ),
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  -0.05, 0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(45),
+                                                child: Image.network(
+                                                  'https://picsum.photos/seed/973/600',
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          shape: BoxShape.circle,
                                         ),
-                                        alignment: AlignmentDirectional(
-                                            0.10000000000000009, 0),
                                       ),
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  9, 9, 9, 9),
+                                          child: Container(
+                                            width: 190,
+                                            height: 140,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFEEEEEE),
+                                            ),
+                                            child: ListView(
+                                              padding: EdgeInsets.zero,
+                                              scrollDirection: Axis.vertical,
+                                              children: [
+                                                Text('$nombre',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                                Text('$numero',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                                Text('$direccion',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                                Text('$correo',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                                Text('$especialidad',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text('Calificación',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    RatingBar.builder(
+                                      initialRating:
+                                          double.parse('$calificacion'),
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(-0.25, -0.85),
-                              child: SingleChildScrollView(
-                                primary: false,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('James Ramirez Roman',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Text('23 años',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Text('997312085',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Text('Ca. Jorge Chavez 337 -Jaen',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Text('facebook',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Text('Mecanico',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                  ],
+                              Container(
+                                width: 340,
+                                height: 41,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                ),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    print('Button pressed ...');
+                                  },
+                                  child: const Text('Ver comentarios'),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Color(0xFFF5F5F5),
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEEEEEE),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text('Calificación',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          RatingBar.builder(
-                            initialRating: 3,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Color(0xFFF5F5F5),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print('Button pressed ...');
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => comentarios_james())));
-                      },
-                      child: const Text('Ver comentarios'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
+              ));
+        }
+
+        // De lo contrario, mostrar algo mientras espera que se complete la inicialización
+        return Container(child: CircularProgressIndicator());
+      },
     );
   }
 }

@@ -1,156 +1,175 @@
+
 // import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
-// import 'package:firebase_core/firebase_core.dart';
+// class HomePageWidget extends StatefulWidget {
+//   const HomePageWidget({Key? key}) : super(key: key);
 
+//   @override
+//   _HomePageWidgetState createState() => _HomePageWidgetState();
+// }
 
-
-// class App extends StatelessWidget {
-
-//     String finales = '';
-//   // String accionDeUsuario = '';
-
-//   App(
-//     this.accionDeUsuario,
-//   );
-//   final String accionDeUsuario;
-
+// class _HomePageWidgetState extends State<HomePageWidget> {
+//   final scaffoldKey = GlobalKey<ScaffoldState>();
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//      // Inicializar FlutterFire      
-//       builder: (context, snapshot) {
-//         // Check for errors
-//         if (snapshot.hasError) {
-//           print('No se logrogo conectar');
-//         }
-
-//         // Una vez completado, muestra tu aplicación
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           return MaterialApp(
-//         debugShowCheckedModeBanner: false,
-//         home: Scaffold(
-//           appBar: AppBar(
-//             backgroundColor: Color.fromARGB(255, 64, 186, 235),
-//             title: Text(
-//                 "${accionDeUsuario[0].toUpperCase()}${accionDeUsuario.substring(1)}"),
-//             actions: [
-//               ElevatedButton(
-//                 child: Text(
-//                   'Trabaja con nosotros',
-//                   style: TextStyle(color: Colors.black),
-//                 ),
-//                 style: ElevatedButton.styleFrom(
-//                   primary: Color.fromARGB(255, 157, 212, 186),
-//                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-//                   side: BorderSide(
-//                     width: 2,
-//                     color: Color.fromARGB(255, 255, 255, 255),
-//                   ),
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(12), // <-- Radius
-//                   ),
-//                 ),
-//                 onPressed: () {
-//                   print('Pressed');
-//                   Navigator.of(context).push(MaterialPageRoute(
-//                       builder: ((context) => FormularioDeTrabajo(
-//                             title: 'Registrate ¡Gratis!',
-//                           ))));
-//                 },
+//     return Scaffold(
+//       key: scaffoldKey,
+//       appBar: AppBar(
+//         backgroundColor: Color.fromARGB(255, 64, 186, 235),
+//         automaticallyImplyLeading: false,
+//         title: Text(
+//           'Page Title',
+//           style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 22),
 //               ),
-//             ],
-//           ),
-//           body: StreamBuilder(
-//             stream: FirebaseFirestore.instance
-//                 .collection('colaboradores')
-//                 .where("jobs", isEqualTo: "$accionDeUsuario")
-//                 .snapshots(),
-//             builder:
-//                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-//               if (!snapshot.hasData) {
-//                 return Center(
-//                   child: CircularProgressIndicator(),
-//                 );
-//               }
-
-//               return ListView(
-//                 children: snapshot.data!.docs.map((document) {
-//                   if (document['jobs'].toString() == "$accionDeUsuario") {
-//                     finales = document['names'].toString() +
-//                         ' ' +
-//                         document['surnames'].toString();
-//                     print("si entro pipi");
-//                   }
-//                   ;
-
-//                   return Container(
-//                       width: 50,
-//                       height: 70,
-//                       decoration: BoxDecoration(
-//                         color: Color.fromARGB(255, 255, 255, 255),
-//                         shape: BoxShape.rectangle,
-//                       ),
-//                       child: Padding(
-//                         padding: EdgeInsetsDirectional.fromSTEB(2, 12, 2, 2),
-//                         child: Card(
-//                           clipBehavior: Clip.antiAliasWithSaveLayer,
-//                           color: Color.fromARGB(255, 136, 138, 138),
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(40),
-//                           ),
-//                           child: InkWell(
-//                             onTap: () async {
-//                               await Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                   builder: (context) => target_james(),
-//                                 ),
-//                               );
-//                             },
-//                             child: Row(
-//                               mainAxisSize: MainAxisSize.max,
-//                               children: [
-//                                 Align(
-//                                   alignment: AlignmentDirectional(-0.05, 0),
-//                                   child: ClipRRect(
-//                                     borderRadius: BorderRadius.circular(22),
-//                                     child: Image.network(
-//                                       'https://firebasestorage.googleapis.com/v0/b/pruefirebase-67702.appspot.com/o/colaboradores%2Fdescarga.jpg?alt=media&token=7369fe31-6b98-44dc-ba67-7c157e38d903',
-//                                       width: 50,
-//                                       height: 50,
-//                                       fit: BoxFit.cover,
-//                                     ),
+        
+//         actions: [],
+//         centerTitle: false,
+//         elevation: 2,
+//       ),
+//       backgroundColor: Colors.blue,
+//       body: SafeArea(
+//         child: GestureDetector(
+//           onTap: () => FocusScope.of(context).unfocus(),
+//           child: Container(
+//             width: MediaQuery.of(context).size.width,
+//             height: MediaQuery.of(context).size.height * 1,
+//             decoration: BoxDecoration(
+//               color: Color(0xFFEEEEEE),
+//             ),
+//             child: Column(
+//               mainAxisSize: MainAxisSize.max,
+//               children: [
+//                 Container(
+//                   width: MediaQuery.of(context).size.width,
+//                   height: MediaQuery.of(context).size.height * 0.25,
+//                   decoration: BoxDecoration(
+//                     color: Color(0xFFEEEEEE),
+//                   ),
+//                   child: Align(
+//                     alignment: AlignmentDirectional(0, 0),
+//                     child: Row(
+//                       mainAxisSize: MainAxisSize.max,
+//                       children: [
+//                         Align(
+//                           alignment: AlignmentDirectional(0.1, 0),
+//                           child: Padding(
+//                             padding:
+//                                 EdgeInsetsDirectional.fromSTEB(39, 39, 39, 39),
+//                             child: Container(
+//                               width: 100,
+//                               height: 100,
+//                               decoration: BoxDecoration(
+//                                 color: Color(0xFFEEEEEE),
+//                               ),
+//                               child: Align(
+//                                 alignment: AlignmentDirectional(-0.05, 0),
+//                                 child: ClipRRect(
+//                                   borderRadius: BorderRadius.circular(45),
+//                                   child: Image.network(
+//                                     'https://picsum.photos/seed/973/600',
+//                                     width: 100,
+//                                     height: 100,
+//                                     fit: BoxFit.cover,
 //                                   ),
 //                                 ),
-//                                 Align(
-//                                   alignment: AlignmentDirectional(0, 0),
-//                                   child: Padding(
-//                                     padding: EdgeInsetsDirectional.fromSTEB(
-//                                         22, 4, 4, 4),
-//                                     child: Text(
-//                                       '$finales',
-//                                       style: TextStyle(color: Colors.black),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ],
+//                               ),
 //                             ),
 //                           ),
 //                         ),
-//                       ));
-//                 }).toList(),
-//               );
-//             },
-//           ),
-//         ));
-  
-//         }
+//                         Align(
+//                           alignment: AlignmentDirectional(0, 0),
+//                           child: Padding(
+//                             padding:
+//                                 EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+//                             child: Container(
+//                               width: 100,
+//                               height: 100,
+//                               decoration: BoxDecoration(
+//                                 color: Color(0xFFEEEEEE),
+//                               ),
+//                               child: ListView(
+//                                 padding: EdgeInsets.zero,
+//                                 scrollDirection: Axis.vertical,
+//                                 children: [
+//                                   Text(
+//                                     'Hello World',
+//                                     style: TextStyle(
+//                                                       fontSize: 15,
+//                                                       color: Colors.black,
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                     )
+//                                   ),
+//                                   Text(
+//                                     'Hello World',
+//                                     style:
+//                                         TextStyle(
+//                                                       fontSize: 15,
+//                                                       color: Colors.black,
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                     )
+//                                   ),
+//                                   Text(
+//                                     'Hello World',
+//                                     style: TextStyle(
+//                                                       fontSize: 15,
+//                                                       color: Colors.black,
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                     )
+//                                   ),
+//                                   Text(
+//                                     'Hello World',
+//                                     style: TextStyle(
+//                                                       fontSize: 15,
+//                                                       color: Colors.black,
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                     )
+//                                   ),
+//                                   Text(
+//                                     'Hello World',
+//                                     style: TextStyle(
+//                                                       fontSize: 15,
+//                                                       color: Colors.black,
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                     )
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//                 Container(
+//                   width: 340,
+//                   height: 41,
+//                   decoration: BoxDecoration(
+//                     color: Color(0xFFEEEEEE),
+//                   ),
+//                   child: ElevatedButton(
+//                     onPressed: () {
+//                       print('Button pressed ...');
+//                     },
 
+//                     child: const Text('Ver comentarios'),
+                    
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
         
-//       // De lo contrario, mostrar algo mientras espera que se complete la inicialización
-//         return Container(child: CircularProgressIndicator()); 
-//       },
+        
+//         ),
+//       ),
 //     );
 //   }
 // }

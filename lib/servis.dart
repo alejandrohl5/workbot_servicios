@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Barbershop',
     'Cantante',
     'Fotografo',
-    'Pintor ',
+    'Pintor',
   ];
 
   Widget _searchTextField() {
@@ -116,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text(_list[index]),
                   onTap: () {
                     print('El usuario hizo click en $click');
+
                     clickfin = click.toLowerCase();
 
                     Navigator.of(context).push(

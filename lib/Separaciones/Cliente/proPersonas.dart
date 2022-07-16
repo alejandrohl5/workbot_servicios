@@ -6,11 +6,13 @@ import 'package:workbot_servicios/targetadePresntaColab.dart';
 
 class App extends StatelessWidget {
   String finales = '';
-  // String accionDeUsuario = '';
+  String EmaiDePersona = '';
+  String accion = '';
+
   void main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    runApp(target_james());
+    runApp(App(''));
   }
 
   App(
@@ -84,10 +86,12 @@ class App extends StatelessWidget {
                           finales = document['names'].toString() +
                               ' ' +
                               document['surnames'].toString();
-                          print("si entro pipi");
+                          EmaiDePersona = document['email'];
+                          print("entro de servis dart");
                         }
                         ;
 
+                        var accion = EmaiDePersona;
                         return Container(
                             width: 50,
                             height: 70,
@@ -105,13 +109,15 @@ class App extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 child: InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => target_james(),
-                                      ),
-                                    );
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                target(accion.toString()))));
+                                    //print("el email selecionado es $finales");
+
+                                    print(
+                                        'su email del selecionado es: $accion');
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
