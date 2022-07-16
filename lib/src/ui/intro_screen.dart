@@ -16,30 +16,34 @@ class IntroScreen extends StatelessWidget {
 }
 
 class _IntroPager extends HookWidget {
-  final String exampleText =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
   @override
   Widget build(BuildContext context) {
     return PageIndicatorContainer(
       child: PageView(
         children: [
           _descriptionPage(
-            text: exampleText,
+            text: "Bienvenido a Workbot-Services"
+                "\n"
+                "\n"
+                "Una app con fines de fomentar la laboralidad de los ciudadanos peruanos",
             imagePath:
                 'https://img.freepik.com/vector-gratis/trabajadores-profesionales-dibujos-animados-dia-trabajo_18591-56737.jpg',
           ),
           _descriptionPage(
-            text: exampleText,
+            text:
+                "En nuestra app se podra contactar con una gran variedad de profesionales, que estaran muy capacitados para poder resolver sus inconvenientes o problemas.",
             imagePath:
                 'https://img.freepik.com/vector-gratis/persona-habla-telefono-movil-hombre-feliz-habla-telefono-inteligente-sonriendo-gesticulando-chico-riendo-llamada-telefono-celular-ilustracion-vector-plano-comunicacion-telefonica-aislada-sobre-fondo-blanco_633472-42.jpg?w=2000',
           ),
           _descriptionPage(
-            text: exampleText,
+            text:
+                "Ademas la app cuenta con la opcion de que usted tambien puede ofrecer su servicio al publico, con la opcion 'Trabajador', la cual le brinda funcionalidades unicas en nuestra app",
             imagePath:
                 'https://png.pngtree.com/png-vector/20190119/ourlarge/pngtree-yellow-ring-the-doorbell-doorbell-the-man-png-image_478062.jpg',
           ),
           _descriptionPage(
-            text: exampleText,
+            text:
+                "Nuestra vision como desarrolladores es el fomentar a profesionales con poca o mucha experiencia, con el fin de que avancen en el mundo laboral y se conviertan en grandes profesionales",
             imagePath:
                 'https://png.pngtree.com/png-vector/20190130/ourlarge/pngtree-office-worker-shaking-hands-talking-decorative-elements-withsuitwhite-collaroffice-workerbackpackhand-png-image_594904.jpg',
           ),
