@@ -27,6 +27,12 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signInWithFacebook() =>
       _signIn(_authRepository.signInWithFacebook());
 
+  Future<void> createUserWithEmailAndPassword(String email, String password) =>
+      _signIn(_authRepository.createUserWithEmailandPassword(email, password));
+
+  Future<void> signInWithEmailAndPassword(String email, String password) =>
+      _signIn(_authRepository.signInWithEmailandPassword(email, password));
+
   Future<void> _signIn(Future<AuthUser?> auxUser) async {
     try {
       emit(AuthSigninIn());
