@@ -155,19 +155,21 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
-                child: Text('Drawer Header'),
+                child: Text(''),
                 decoration: BoxDecoration(
                   color: Colors.blue,
+                  image: DecorationImage(
+                      image: AssetImage('assets/logo.jpeg'),
+                      fit: BoxFit.contain),
                 ),
               ),
-              ListTile(
-                title: Text('Item 1'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text('Item 2'),
-                onTap: () {},
-              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.exit_to_app_outlined),
+                  title: Text('Cerrar sesion'),
+                  onTap: () => context.read<AuthCubit>().signOut(),
+                ),
+              )
             ],
           ),
         ),
