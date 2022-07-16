@@ -1,9 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workbot_servicios/Separaciones/Cliente/proPersonas.dart';
 import 'package:workbot_servicios/src/bloc/auth_cubit.dart';
-import 'package:workbot_servicios/victor_perfil.dart';
-import 'package:workbot_servicios/src/repository/auth_repository.dart';
-import 'rosario_formulario.dart';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(servicios_james());

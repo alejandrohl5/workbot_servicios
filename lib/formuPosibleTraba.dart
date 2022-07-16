@@ -112,7 +112,6 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
         Navigator.of(context).push(
           MaterialPageRoute(builder: ((context) => servicios_james())),
         );
-        Navigator.of(context, rootNavigator: true).pop('dialog');
       },
     );
 
@@ -343,7 +342,8 @@ class _MyHomePageState extends State<FormularioDeTrabajo> {
                                             direccion == '' ||
                                             email == '' ||
                                             ocupacion == '' ||
-                                            telefono == '' || whatsasap == '') {
+                                            telefono == '' ||
+                                            whatsasap == '') {
                                           alertCamposVacios(context);
                                         }
                                         createData();

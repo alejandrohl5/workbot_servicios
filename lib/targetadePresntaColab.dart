@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:workbot_servicios/wigetcomentarios.dart';
+import 'package:workbot_servicios/comentarios.dart';
 
 class target extends StatelessWidget {
   String nombre = '';
@@ -42,7 +42,7 @@ class target extends StatelessWidget {
               home: Scaffold(
                 appBar: AppBar(
                   backgroundColor: Color.fromARGB(255, 64, 186, 235),
-                  title: Text("$emailClickeado"),
+                  title: Text("Workbot"),
                 ),
                 body: StreamBuilder(
                   stream: FirebaseFirestore.instance
@@ -70,8 +70,7 @@ class target extends StatelessWidget {
                           direccion = document['direccion'];
                           especialidad = document['jobs'];
                           calificacion = document['calificacion'];
-                          print(
-                              'el email  trajo es: $emailClickeado pelotudooooooooooooooooooooooooooooooooooooooooo');
+                          print('el email que trajo es: $emailClickeado ');
 
                           print(
                               "si entro mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
@@ -122,7 +121,7 @@ class target extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(45),
                                                 child: Image.network(
-                                                  'https://picsum.photos/seed/973/600',
+                                                  'https://img.myloview.es/vinilos/persona-icono-vector-usuario-masculino-perfil-avatar-en-pictograma-glifo-de-color-plano-ilustracion-700-121123309.jpg',
                                                   width: 100,
                                                   height: 100,
                                                   fit: BoxFit.cover,
@@ -148,35 +147,35 @@ class target extends StatelessWidget {
                                               padding: EdgeInsets.zero,
                                               scrollDirection: Axis.vertical,
                                               children: [
-                                                Text('$nombre',
+                                                Text('-$nombre',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     )),
-                                                Text('$numero',
+                                                Text('-$numero',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     )),
-                                                Text('$direccion',
+                                                Text('-$direccion',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     )),
-                                                Text('$correo',
+                                                Text('-$correo',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     )),
-                                                Text('$especialidad',
+                                                Text('-$especialidad',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.black,
@@ -222,22 +221,22 @@ class target extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: 340,
-                                height: 41,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                ),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: ((context) =>
-                                                comentarios_james())));
-                                  },
-                                  child: const Text('Ver comentarios'),
-                                ),
-                              ),
+                              // Container(
+                              //   width: 340,
+                              //   height: 41,
+                              //   decoration: BoxDecoration(
+                              //     color: Color(0xFFEEEEEE),
+                              //   ),
+                              //   child: ElevatedButton(
+                              //     onPressed: () {
+                              //       Navigator.of(context).push(
+                              //           MaterialPageRoute(
+                              //               builder: ((context) =>
+                              //                   comentarios(''))));
+                              //     },
+                              //     child: const Text('Ver comentarios'),
+                              //   ),
+                              // ),
                             ],
                           ),
                         );
