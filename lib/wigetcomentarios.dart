@@ -5,8 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:workbot_servicios/src/bloc/auth_cubit.dart';
 
-void main() => runApp(comentarios_james());
-
 class comentarios_james extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

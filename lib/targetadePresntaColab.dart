@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:workbot_servicios/wigetcomentarios.dart';
 
 class target extends StatelessWidget {
   String nombre = '';
@@ -229,7 +230,10 @@ class target extends StatelessWidget {
                                 ),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                comentarios_james())));
                                   },
                                   child: const Text('Ver comentarios'),
                                 ),
